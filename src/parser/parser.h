@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 15:39:28 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/14 19:36:25 by htsang           ###   ########.fr       */
+/*   Created: 2022/12/14 18:59:23 by htsang            #+#    #+#             */
+/*   Updated: 2022/12/14 19:22:54 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PARSER_H
+# define PARSER_H
 
-# include "error/error.h"
+# include "../libft/libft.h"
 
-typedef struct s_cmds
+typedef struct s_pipex_parser
 {
 	char *const	*envp;
-	char 		**argv;
-}				t_cmds;
+	char 		    **commands;
+}               t_pipex_parser;
 
-int	exec_cmd_from_file(t_cmds *cmds, int write_pipe[2]);
+char			**parse_command(t_pipex_parser *parser);
 
-int	exec_cmd_to_cmd(t_cmds *cmds, int read_pipe[2], int write_pipe[2]);
+char			*parse_filename(t_pipex_parser *parser);
 
-int	exec_cmd_to_file(t_cmds *cmds, int read_pipe[2]);
+char			*peek_command(t_pipex_parser *parser);
 
-char	**get_cmd(t_cmds *iterator);
-
-t_cmds	*init_cmds(char const **argv, char *const *envp);
-
-void	close_pipe_with_eh(t_cmds *cmds, int pipe[2]);
+t_pipex_parser	*init_parser(char const **argv, char *const *envp);
 
 #endif
