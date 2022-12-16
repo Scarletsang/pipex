@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:59:23 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/16 18:38:16 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/16 19:28:41 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_pipex_parser
 	char		**commands;
 	void		*data;
 	int			data_need_free;
-}               t_pipex_parser;
+}				t_pipex_parser;
 
 //////////////////////////////////
 ////////      parser    //////////
@@ -31,7 +31,8 @@ t_pipex_parser	*parse_command(t_pipex_parser *parser);
 
 t_pipex_parser	*parse_filename(t_pipex_parser *parser);
 
-t_pipex_parser	*init_parser(char const **argv, char *const *envp);
+t_pipex_parser	*init_parser(char const **argv, char *const *envp, \
+t_pipex_parser *parser);
 
 void			*get_data(t_pipex_parser *parser);
 
@@ -53,7 +54,8 @@ void			handle_error(t_pipex_parser *parser);
 
 int				crash_invalid_fd(int func_return_value, t_pipex_parser *parser);
 
-char			*crash_invalid_str(char *func_return_value, t_pipex_parser *parser);
+char			*crash_invalid_str(char *func_return_value, \
+t_pipex_parser *parser);
 
 int				crash_when_false(int func_return_value, t_pipex_parser *parser);
 
@@ -61,8 +63,8 @@ int				crash_when_false(int func_return_value, t_pipex_parser *parser);
 ////      execute function from parser     /////
 ////////////////////////////////////////////////
 
-int	open_file_from_parser(int permission, t_pipex_parser *parser);
+int				open_file_from_parser(int permission, t_pipex_parser *parser);
 
-int	execve_command_from_parser(t_pipex_parser *parser);
+int				execve_command_from_parser(t_pipex_parser *parser);
 
 #endif
