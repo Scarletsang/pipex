@@ -6,42 +6,68 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:34:22 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/14 19:22:30 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/16 18:42:10 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "pipex_parser.h"
 
-char	**parse_command(t_pipex_parser *parser)
+t_pipex_parser	*parse_command(t_pipex_parser *parser)
 {
-	if (!*(parser->commands))
+	char	**split_command;
+
+	split_command = ft_split((parser->commands)[0], ' ');
+	if (!split_command)
 	{
 		return (NULL);
 	}
-	(parser->commands)++;
-	return (ft_split((parser->commands - 1)[0], ' '));
+	free_data(parser);
+	parser->data = split_command;
+	parser->data_need_free = 1;
+	return (parser);
 }
 
-char	*parse_filename(t_pipex_parser *parser)
+t_pipex_parser	*parse_filename(t_pipex_parser *parser)
 {
-	if (!*(parser->commands))
+	free_data(parser);
+	parser->data = (parser->commands)[0];
+	parser->data_need_free = 0;
+	return (parser);
+}
+
+void	*get_data(t_pipex_parser *parser)
+{
+	return (parser->data);
+}
+
+void	free_data(t_pipex_parser *parser)
+{
+	void	*data;
+
+	if (parser->data_need_free == 1)
 	{
-		return (NULL);
+		data = parser->data;
+		while (*(char **) data)
+		{
+			free(*(char **) data);
+			data++;
+		}
+		free(data);
 	}
-	(parser->commands)++;
-	return ((parser->commands - 1)[0]);
-}
-
-char	*peek_command(t_pipex_parser *parser)
-{
-	return ((parser->commands)[0]);
 }
 
 t_pipex_parser	*init_parser(char const **argv, char *const *envp)
 {
-	static t_pipex_parser	parser;
+	t_pipex_parser	*parser;
 
-	parser.envp = envp;
-	parser.commands = argv;
-	return (&parser);
+	parser = malloc(sizeof(t_pipex_parser));
+	if (!parser)
+	{
+		return (NULL);
+	}
+	parser->envp = envp;
+	parser->commands = argv;
+	parser->data = NULL;
+	parser->data_need_free = 0;
+	return (parser);
 }
