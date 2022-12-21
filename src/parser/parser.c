@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:34:22 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/16 19:25:59 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/22 00:11:25 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_pipex_parser	*parse_command(t_pipex_parser *parser)
 	{
 		return (NULL);
 	}
-	free_data(parser);
+	free_parser_data(parser);
 	parser->data = split_command;
 	parser->data_need_free = 1;
 	return (parser);
@@ -29,18 +29,23 @@ t_pipex_parser	*parse_command(t_pipex_parser *parser)
 
 t_pipex_parser	*parse_filename(t_pipex_parser *parser)
 {
-	free_data(parser);
+	free_parser_data(parser);
 	parser->data = (parser->commands)[0];
 	parser->data_need_free = 0;
 	return (parser);
 }
 
-void	*get_data(t_pipex_parser *parser)
+t_pipex_parser	*parser_next_command(t_pipex_parser *parser)
 {
-	return (parser->data);
+	if (parsing_ended(parser))
+	{
+		return (NULL);
+	}
+	parser->commands++;
+	return (parser);
 }
 
-void	free_data(t_pipex_parser *parser)
+void	free_parser_data(t_pipex_parser *parser)
 {
 	void	*data;
 
