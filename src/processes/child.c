@@ -6,10 +6,11 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:38:45 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/22 19:34:32 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/22 19:58:04 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include "pipex_processes.h"
 
 int	run_command_from_infile(t_pipex_states *states)
@@ -18,7 +19,12 @@ int	run_command_from_infile(t_pipex_states *states)
 	int	*write_pipe;
 
 	infile_fd = safe_open_from_states(O_RDONLY, states);
-	if (infile_fd != -1)
+	if (infile_fd == -1)
+	{
+		perror(errno);
+		close(STDIN_FILENO);
+	}
+	else
 	{
 		dup2(infile_fd, STDIN_FILENO);
 		close(infile_fd);
@@ -51,13 +57,15 @@ int	run_command_to_outfile(t_pipex_states *states)
 
 	parser_walk_forward(get_parser(states));
 	outfile_fd = safe_open_from_next_states(O_RDONLY, states);
-	if (outfile_fd != -1)
+	if (outfile_fd == -1)
 	{
-		dup2(outfile_fd, STDOUT_FILENO);
-		close(outfile_fd);
+		close_pipe(read_pipe);
+		return (-1);
 	}
 	read_pipe = get_read_pipe(states);
+	dup2(outfile_fd, STDOUT_FILENO);
 	dup2(read_pipe[0], STDIN_FILENO);
+	close(outfile_fd);
 	close_pipe(read_pipe);
 	parser_walk_backward(get_parser(states));
 	return (safe_execve_from_states(states));
