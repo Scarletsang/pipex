@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:59:23 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/22 00:14:41 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/22 19:33:17 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,37 @@
 typedef struct s_pipex_parser
 {
 	char *const	*envp;
-	char		**commands;
+	char		**inputs;
 	void		*data;
-	int			data_need_free;
+	t_data_type	data_type;
 }				t_pipex_parser;
+
+typedef enum	e_data_type
+{
+	CONST_STRING,
+	COMMAND
+}				t_data_type;
 
 //////////////////////////////////
 ////////      parser    //////////
 //////////////////////////////////
 
-t_pipex_parser	*parse_command(t_pipex_parser *parser);
+t_pipex_parser	*parser_walk_forward(t_pipex_parser *parser);
 
-t_pipex_parser	*parse_filename(t_pipex_parser *parser);
-
-t_pipex_parser	*parser_next_command(t_pipex_parser *parser);
+t_pipex_parser	*parser_walk_backward(t_pipex_parser *parser);
 
 void			free_parser_data(t_pipex_parser *parser);
 
 t_pipex_parser	*init_parser(char const **argv, char *const *envp, \
 t_pipex_parser *parser);
+
+//////////////////////////////////
+/////      parse inputs    ///////
+//////////////////////////////////
+
+t_pipex_parser	*parse_command(t_pipex_parser *parser);
+
+t_pipex_parser	*parse_filename(t_pipex_parser *parser);
 
 //////////////////////////////////
 ////      parser state     ///////
@@ -52,6 +64,6 @@ void			*get_parser_data(t_pipex_parser *parser);
 ////         checker        //////
 //////////////////////////////////
 
-int	check_next_command_is_end(t_pipex_parser *parser);
+int				check_next_command_is_end(t_pipex_parser *parser);
 
 #endif
