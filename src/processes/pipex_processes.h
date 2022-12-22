@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:39:00 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/22 00:29:39 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/22 20:03:05 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 ////      Parent processes     /////
 ////////////////////////////////////
 
-void	in(t_pipex_states *states);
+void	fork_command_from_infile(t_pipex_states *states);
 
-void	nomral(t_pipex_states *states);
+void	fork_command(t_pipex_states *states);
 
-void	out(t_pipex_states *states);
+void	fork_command_to_outfile(t_pipex_states *states);
 
 ////////////////////////////////////
 ////      Child processes      /////
