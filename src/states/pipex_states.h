@@ -6,13 +6,14 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:55:29 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/21 20:38:26 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/22 20:11:08 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_STATES_H
 # define PIPEX_STATES_H
 
+# include <errno.h>
 # include "../parser/pipex_parser.h"
 
 typedef struct s_pipex_states

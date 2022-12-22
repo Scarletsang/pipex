@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 19:14:09 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/21 19:26:08 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/22 20:10:55 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_pipex_states	*init_states(char const **argv, char *const *envp)
 	states = malloc(sizeof(t_pipex_states));
 	if (!states)
 	{
+		perror(errno);
 		return (NULL);
 	}
 	states->write_pipe_index = 0;

@@ -6,11 +6,10 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:38:45 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/22 19:58:04 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/22 20:11:20 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
 #include "pipex_processes.h"
 
 int	run_command_from_infile(t_pipex_states *states)
