@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 13:44:21 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/22 20:11:00 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/24 18:54:38 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_error(t_pipex_states *states)
 {
-	perror(errno);
+	strerror(errno);
 	free_parser_data(get_parser(states));
 }
 

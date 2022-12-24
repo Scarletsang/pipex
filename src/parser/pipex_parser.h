@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:59:23 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/22 19:33:17 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/24 18:47:03 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 
 # include "../libft/libft.h"
 
-typedef struct s_pipex_parser
-{
-	char *const	*envp;
-	char		**inputs;
-	void		*data;
-	t_data_type	data_type;
-}				t_pipex_parser;
-
 typedef enum	e_data_type
 {
 	CONST_STRING,
 	COMMAND
 }				t_data_type;
+
+typedef struct s_pipex_parser
+{
+	char *const	*envp;
+	const char	**inputs;
+	void		*data;
+	t_data_type	data_type;
+}				t_pipex_parser;
 
 //////////////////////////////////
 ////////      parser    //////////

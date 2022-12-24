@@ -6,13 +6,14 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:55:29 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/22 20:11:08 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/24 18:55:15 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_STATES_H
 # define PIPEX_STATES_H
 
+# include <string.h>
 # include <errno.h>
 # include "../parser/pipex_parser.h"
 
@@ -29,7 +30,7 @@ int				*get_write_pipe(t_pipex_states *states);
 
 int				*get_read_pipe(t_pipex_states *states);
 
-t_pipex_states	*get_parser(t_pipex_states *states);
+t_pipex_parser	*get_parser(t_pipex_states *states);
 
 t_pipex_states	*init_states(char const **argv, char *const *envp);
 

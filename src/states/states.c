@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 19:14:09 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/22 20:10:55 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/24 18:54:38 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	*get_read_pipe(t_pipex_states *states)
 	return (states->pipes);
 }
 
-t_pipex_states	*get_parser(t_pipex_states *states)
+t_pipex_parser	*get_parser(t_pipex_states *states)
 {
 	return (&(states->parser));
 }
@@ -51,7 +51,7 @@ t_pipex_states	*init_states(char const **argv, char *const *envp)
 	states = malloc(sizeof(t_pipex_states));
 	if (!states)
 	{
-		perror(errno);
+		strerror(errno);
 		return (NULL);
 	}
 	states->write_pipe_index = 0;

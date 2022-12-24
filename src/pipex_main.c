@@ -6,13 +6,13 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 14:33:13 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/23 22:58:36 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/24 20:35:18 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "processes/pipex_processes.h"
 
-int main(int argc, const char **argv, const char *envp)
+int main(int argc, const char **argv, char *const *envp)
 {
 	t_pipex_states	*states;
 

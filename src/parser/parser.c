@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:34:22 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/22 20:15:30 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/24 18:48:04 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_parser_data(t_pipex_parser *parser)
 {
 	void	*data;
 
-	if (parser->data_type == NULL)
+	if (parser->data_type == CONST_STRING)
 	{
 		return ;
 	}
