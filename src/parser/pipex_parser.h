@@ -15,7 +15,7 @@
 
 # include "lexer/pipex_lexer.h"
 
-typedef enum	e_data_type
+typedef enum e_data_type
 {
 	CONST_STRING,
 	COMMAND
