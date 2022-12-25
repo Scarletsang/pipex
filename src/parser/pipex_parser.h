@@ -6,20 +6,26 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:59:23 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/24 18:47:03 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/26 00:23:49 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_PARSER_H
 # define PIPEX_PARSER_H
 
-# include "../libft/libft.h"
+# include "lexer/pipex_lexer.h"
 
 typedef enum	e_data_type
 {
 	CONST_STRING,
 	COMMAND
 }				t_data_type;
+
+typedef struct s_pipex_lexer
+{
+	size_t					length;
+	struct s_pipex_lexer	*next;
+}					t_pipex_lexer;
 
 typedef struct s_pipex_parser
 {
