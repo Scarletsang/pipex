@@ -1,3 +1,0 @@
-[submodule "src/libft"]
-	path = src/libft
-	url = https://github.com/Scarletsang/libft.git

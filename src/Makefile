@@ -1,4 +1,8 @@
 NAME=pipex
+LEXER_SRC= \
+	parser/lexer/lexer.c \
+	parser/lexer/consumer.c \
+	parser/lexer/converter.c
 PARSER_SRC= \
 	parser/parser.c \
 	parser/parser_state.c \
@@ -12,12 +16,11 @@ PROCESSES_SRC= \
 	processes/parent.c \
 	processes/safe_executor.c \
 	processes/utils.c
-MAIN_SRC= \
-	pipex_main.c
+LEXER_OBJS=${LEXER_SRC:.c=.o}
 PARSER_OBJS=${PARSER_SRC:.c=.o}
 STATES_OBJS=${STATES_SRC:.c=.o}
 PROCESSES_OBJS=${PROCESSES_SRC:.c=.o}
-OBJS=libft/libft.a $(PARSER_OBJS) ${STATES_OBJS} ${PROCESSES_OBJS} pipex_main.o
+OBJS=${LEXER_OBJS} $(PARSER_OBJS) ${STATES_OBJS} ${PROCESSES_OBJS} pipex_main.o
 CC=cc
 CFLAGS= -Wall -Wextra -Werror
 
@@ -26,20 +29,18 @@ all: ${NAME}
 ${NAME}: ${OBJS}
 	${CC} ${CFLAGS} ${OBJS} -o ${NAME}
 
+pipex_main.o: ${PROCESSES_OBJS}
+
 ${PROCESSES_OBJS}: ${STATES_OBJS}
 
 ${STATES_OBJS}: ${PARSER_OBJS}
 
-${PARSER_OBJS}: libft/libft.a
-
-libft/libft.a:
-	make -C libft all
+${PARSER_OBJS}: ${LEXER_OBJS}
 
 %.o: %.c
 	${CC} ${CFLAGS} -c $< -o $@
 
 clean:
-	make -C libft clean
 	rm -f ${OBJS}
 
 fclean: clean
