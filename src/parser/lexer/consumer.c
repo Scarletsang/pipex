@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 22:44:45 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/26 00:19:27 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/26 23:47:02 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,28 +66,28 @@ void	ignore_spaces(char const **command_args)
 }
 
 /**
- * @brief 
+ * @brief Consume a single argument from the command arguments.
  * @details 
-	// Consume \" or \'
-	// Detect  " or  '
-		// Consume \" or \'
-		// Detect  " or  ' for ending the string
-	// Ignore spaces
- * @param str 
+ * 1. Consume \" or \'
+ * 2. Detect  " or  '
+ *   2.1 Consume \" or \'
+ *   2.2 Detect  " or  ' for ending the string
+ * 3. Ignore spaces
+ * @param command_args The unparsed command arguments string
  * @param lexer Lexer node
- * @return 
+ * @return One lexed command argument
  */
-t_pipex_lexer_node	*consume_command_arg(char const *command_args, \
+t_pipex_lexer_node	*consume_command_arg(char const **command_args, \
 t_pipex_lexer_node *lexer)
 {
 	if (!lexer)
 	{
 		return (NULL);
 	}
-	while (*command_args && !ft_isspace(*command_args))
+	while (**command_args && !ft_isspace(**command_args))
 	{
-		consume_escape_char(&command_args, lexer);
-		consume_quoted_string(&command_args, lexer);
+		consume_escape_char(command_args, lexer);
+		consume_quoted_string(command_args, lexer);
 	}
 	ignore_spaces(command_args);
 	return (lexer);
