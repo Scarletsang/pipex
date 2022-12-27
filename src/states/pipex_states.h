@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:55:29 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/24 18:55:15 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/27 20:14:02 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ t_pipex_states	*init_states(char const **argv, char *const *envp);
 
 void			handle_error(t_pipex_states *states);
 
-int				crash_when_minus_1(int func_return_value, t_pipex_states *states);
+int				crash_when_minus_1(int func_return_value, \
+t_pipex_states *states);
 
 char			*crash_invalid_str(char *func_return_value, \
 t_pipex_states *states);
