@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 21:39:33 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/26 23:11:39 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/27 16:58:08 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ t_pipex_lexer_node	*lex_command(const char *command_args)
 	while (*command_args)
 	{
 		lexer->next = lexer_new_node(0);
+		if (!lexer->next)
+		{
+			return (free_lexer(lexer_head));
+		}
 		lexer = consume_command_arg(&command_args, lexer->next);
 		if (!lexer)
 		{

@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:34:22 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/24 18:48:04 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/27 21:32:56 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_pipex_parser	*parser_walk_backward(t_pipex_parser *parser)
 
 void	free_parser_data(t_pipex_parser *parser)
 {
-	void	*data;
+	size_t	i;
 
 	if (parser->data_type == CONST_STRING)
 	{
@@ -38,13 +38,15 @@ void	free_parser_data(t_pipex_parser *parser)
 	}
 	if (parser->data_type == COMMAND)
 	{
-		data = parser->data;
-		while (*(char **) data)
+		i = 0;
+		while (((char **) parser->data)[i])
 		{
-			free(*(char **) data);
-			data++;
+			free(((char **) parser->data)[i]);
+			i++;
 		}
-		free(data);
+		free(parser->data);
+		parser->data = NULL;
+		parser->data_type = CONST_STRING;
 	}
 }
 

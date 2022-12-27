@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 00:06:53 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/26 23:12:41 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/27 20:35:06 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,23 @@ static char	**free_command(char **split_command, size_t count)
 	return (NULL);
 }
 
-static int	fill_split_command(char *split_command_arg, \
+static int	fill_split_command(char **split_command, \
 const char **command_args, t_pipex_lexer_node *lexer)
 {
-	split_command_arg = malloc(lexer->length + 1);
-	if (!split_command_arg)
+	size_t	i;
+
+	*split_command = malloc(lexer->length + 1);
+	if (!(*split_command))
 	{
 		return (1);
 	}
-	split_command_arg[lexer->length] = 0;
-	while (lexer->length > 0)
+	(*split_command)[lexer->length] = 0;
+	i = 0;
+	while (i < lexer->length)
 	{
-		*split_command_arg = **command_args;
-		split_command_arg++;
+		(*split_command)[i] = **command_args;
+		i++;
 		(*command_args)++;
-		lexer->length--;
 	}
 	ignore_spaces(command_args);
 	return (0);
@@ -57,19 +59,20 @@ char	**to_split_command(const char *command_args, t_pipex_lexer_node *lexer)
 	if (!lexer)
 		return (NULL);
 	lexer_head = lexer;
-	split_command = malloc(lexer_head->length * sizeof(char *) + 1);
+	split_command = malloc((lexer_head->length + 1) * sizeof(char *));
 	if (!split_command)
 	{
 		return (free_lexer(lexer_head), NULL);
 	}
-	split_command[lexer_head->length - 1] = 0;
+	lexer = lexer->next;
+	split_command[lexer_head->length] = 0;
 	i = 0;
 	ignore_spaces(&command_args);
 	while (i < lexer_head->length)
 	{
-		if (fill_split_command(split_command[i++], &command_args, lexer))
+		if (fill_split_command(&split_command[i++], &command_args, lexer))
 		{
-			return (free_lexer(lexer_head), free_command(split_command, i));
+			return (free_lexer(lexer_head), free_command(split_command, i + 1));
 		}
 		lexer = lexer->next;
 	}

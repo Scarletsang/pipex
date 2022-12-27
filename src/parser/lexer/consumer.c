@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 22:44:45 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/26 23:47:02 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/27 17:33:57 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_isspace(char c)
 		c == '\v' || c == '\f' || c == '\r');
 }
 
-static void	consume_escape_char(char const **command_args, \
+static int	consume_escape_char(char const **command_args, \
 t_pipex_lexer_node *lexer)
 {
 	if (**command_args == '\\')
@@ -30,17 +30,19 @@ t_pipex_lexer_node *lexer)
 			(lexer->length)++;
 			(*command_args)++;
 		}
+		return (0);
 	}
+	return (1);
 }
 
-static void	consume_quoted_string(char const **command_args, \
+static int	consume_quoted_string(char const **command_args, \
 t_pipex_lexer_node *lexer)
 {
 	char	quote;
 
 	if (**command_args != '\'' && **command_args != '\"')
 	{
-		return ;
+		return (1);
 	}
 	quote = **command_args;
 	(lexer->length)++;
@@ -55,6 +57,7 @@ t_pipex_lexer_node *lexer)
 	{
 		(lexer->length)++;
 	}
+	return (0);
 }
 
 void	ignore_spaces(char const **command_args)
@@ -80,14 +83,14 @@ void	ignore_spaces(char const **command_args)
 t_pipex_lexer_node	*consume_command_arg(char const **command_args, \
 t_pipex_lexer_node *lexer)
 {
-	if (!lexer)
-	{
-		return (NULL);
-	}
 	while (**command_args && !ft_isspace(**command_args))
 	{
-		consume_escape_char(command_args, lexer);
-		consume_quoted_string(command_args, lexer);
+		if (consume_escape_char(command_args, lexer) && \
+		consume_quoted_string(command_args, lexer))
+		{
+			(lexer->length)++;
+		}
+		(*command_args)++;
 	}
 	ignore_spaces(command_args);
 	return (lexer);
