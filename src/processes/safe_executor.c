@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:14:17 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/27 20:14:48 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/28 23:50:11 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	safe_execve_from_states(t_pipex_states *states)
 	t_pipex_parser	*parser;
 
 	parser = get_parser(states);
-	if (parsing_failed(parse_command(parser)))
+	if (parsing_failed(
+			expand_executable_path(
+				parse_command(parser))))
 	{
 		return (1);
 	}

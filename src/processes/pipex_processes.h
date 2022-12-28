@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:39:00 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/22 20:03:05 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/28 23:49:33 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include "../states/pipex_states.h"
+# include "../path_expander/pipex_path_expander.h"
 
 ////////////////////////////////////
 ////      Parent processes     /////
