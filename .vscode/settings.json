@@ -4,6 +4,13 @@
     "libft.h": "c",
     "errno.h": "c",
     "fcntl.h": "c",
-    "error.h": "c"
+    "error.h": "c",
+    "pipex_lexer.h": "c",
+    "tests.h": "c",
+    "array": "c",
+    "iterator": "c",
+    "string": "c",
+    "string_view": "c",
+    "vector": "c"
   }
 }
