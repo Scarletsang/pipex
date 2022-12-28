@@ -1,43 +1,26 @@
-# Please only change the following line
-TARGET_NAMES=
-
 NAME=debug.out
 TARGET_DIR=../src
+
+LEXER_SRCS=${TARGET_DIR}/parser/lexer/*.c
+PARSER_SRCS=${TARGET_DIR}/parser/*.c ${LEXER_SRCS}
+STATES_SRCS=${TARGET_DIR}/states/*.c ${PARSER_SRCS}
+PROCESSES_SRCS=${TARGET_DIR}/processes/*.c ${STATES_SRCS}
+
 TESTS:=$(shell find tests -name '*.c')
-TARGETS=${addprefix ${TARGET_DIR},${TARGET_NAMES}}
 TESTS_OBJS=${TESTS:.c=.o}
+
 CC=cc
-CFLAGS= -g3 -fsanitize=address
+CFLAGS= -g3 -Wall -Wextra -Werror -Wformat
+CFLAGS += -fsanitize=address
 
-all: ${NAME}
+lexer:
+	${CC} ${CFLAGS} tests/test_lexer.c tests/printers.c ${LEXER_SRCS} -o ${NAME}
 
-${NAME}: targetall ${TESTS_OBJS}
-ifeq ($(findstring .a, ${TARGETS}),)
-	@${CC} ${CFLAGS} -Wformat main.c ${TESTS_OBJS} ${TARGETS:.c=.o} -o ${NAME} && \
-	echo "Success compiling with the target binary ${TARGET_NAMES}!"
-else
-	@${CC} ${CFLAGS} -Wformat main.c ${TESTS_OBJS} -L./${TARGET_DIR} -l$(patsubst lib%.a,%,${TARGET_NAMES}) -o ${NAME} && \
-	echo "Success compiling with the target library ${TARGET_NAMES}!"
-endif
+parser:
+	${CC} ${CFLAGS} tests/test_parser.c tests/printers.c ${PARSER_SRCS} -o ${NAME}
 
-%.o: %.c
-	@${CC} ${CFLAGS} -c $< -o $@
+states:
+	${CC} ${CFLAGS} tests/test_states.c tests/printers.c ${STATES_SRCS} -o ${NAME}
 
-clean: targetclean
-	@rm -f ${TESTS_OBJS}
-
-fclean: targetfclean clean
-	@rm -f ${NAME}
-
-re: fclean all
-
-# Target rules
-
-targetall:
-	@make CFLAGS="${CFLAGS} -Wall -Wextra -Werror" re -C ${TARGET_DIR}
-
-targetclean:
-	@make clean -C ${TARGET_DIR}
-
-targetfclean:
-	@make fclean -C ${TARGET_DIR}
+# targetall:
+# 	make -C ${TARGET_DIR} ${PROCESSES_OBJS}
