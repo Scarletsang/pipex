@@ -2,7 +2,7 @@ NAME=debug.out
 TARGET_DIR=../src
 
 LEXER_SRCS=${TARGET_DIR}/parser/lexer/*.c
-PARSER_SRCS=${TARGET_DIR}/parser/*.c ${LEXER_SRCS}
+PARSER_SRCS=${TARGET_DIR}/parser/*.c ${TARGET_DIR}/path_expander/*.c ${LEXER_SRCS}
 STATES_SRCS=${TARGET_DIR}/states/*.c ${PARSER_SRCS}
 PROCESSES_SRCS=${TARGET_DIR}/processes/*.c ${STATES_SRCS}
 

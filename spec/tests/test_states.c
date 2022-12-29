@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 23:41:46 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/29 00:39:11 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/29 23:47:45 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_pipex_states	*generate_states(char *const *envp)
 	argv[2] = "ping www.google.com";
 	argv[3] = 0;
 	states = init_states((const char **) argv, envp);
-	print_states(states);
+	// print_states(states);
 	return (states);
 }
 
@@ -38,16 +38,17 @@ void	test_forking_states(char *const *envp)
 	pid = fork();
 	if (pid == 0)
 	{
-		parse_command(parser);
+		expand_executable_path(parse_command(parser));
 		print_states(states);
-		execve(((char **) get_parser_data(parser))[0], \
-			(char **) get_parser_data(parser), parser->envp);
+		execve(get_parser_executable(parser), \
+			get_parser_command(parser), parser->envp);
+		free_parser_data(parser);
 		free(states);
 		exit(EXIT_FAILURE);
 	}
 	wait(NULL);
-	free(states->parser.inputs);
 	print_states(states);
+	free_parser_data(parser);
 	free(states);
 }
 

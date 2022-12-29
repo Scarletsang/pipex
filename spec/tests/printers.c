@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 20:52:18 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/28 21:39:44 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/29 23:35:52 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_split(char **split_str)
 	i = 0;
 	if (!split_str)
 	{
-		printf("%s", NULL);
+		printf("%s", (char *) NULL);
 		return ;
 	}
 	while (split_str[i])
