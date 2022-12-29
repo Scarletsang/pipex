@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:14:17 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/28 23:50:11 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/30 00:19:38 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	safe_open_from_states(int permission, t_pipex_states *states)
 	return (open(
 			get_parser_data(
 				parse_filename(
-					get_parser(states))), permission));
+					get_parser(states))), permission, 0644));
 }
 
 int	safe_execve_from_states(t_pipex_states *states)

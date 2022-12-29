@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:38:45 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/24 19:30:41 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/30 00:13:02 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	run_command_to_outfile(t_pipex_states *states)
 	int	outfile_fd;
 
 	parser_walk_forward(get_parser(states));
-	outfile_fd = safe_open_from_states(O_RDONLY, states);
+	outfile_fd = safe_open_from_states(O_TRUNC | O_CREAT | O_RDWR, states);
 	read_pipe = get_read_pipe(states);
 	if (outfile_fd == -1)
 	{
