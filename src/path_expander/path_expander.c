@@ -6,58 +6,66 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 23:25:40 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/29 00:33:34 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/29 23:47:16 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "pipex_path_expander.h"
 
-/**
-** @param str: a NULL-terminated string
-** @return the length of the given string
-*/
-static size_t	ft_strlen(const char *str)
+static char	*expand_path(char const **path_envp, \
+char *executable_name, size_t executable_name_len)
 {
-	size_t	count;
+	char	*expanded_path;
+	size_t	i;
 
-	count = 0;
-	while (*str != '\0')
+	expanded_path = malloc(ft_expanded_pathlen(*path_envp, \
+	executable_name_len) + 1);
+	if (!expanded_path)
 	{
-		str++;
-		count++;
+		return (NULL);
 	}
-	return (count);
+	i = 0;
+	while (**path_envp)
+	{
+		if (**path_envp == ':')
+		{
+			(*path_envp)++;
+			break ;
+		}
+		expanded_path[i++] = **path_envp;
+		(*path_envp)++;
+	}
+	expanded_path[i++] = '/';
+	ft_strcpy(expanded_path + i, executable_name);
+	return (expanded_path);
 }
 
-static size_t	calc_executable_name_len(size_t executable_name_len, \
-char const *path_envp)
-{
-	// executable name length
-	// '/' character length
-	// path length
-}
-
-static char const	*expand_path(size_t executable_name_len, \
-t_pipex_parser *parser)
-{
-	// malloc (exec_len + path_len + 2)
-	// copy from path_envp up to : or \0
-	// write '\' character
-	// copy executable name
-	// write NULL terminator
-}
-
-static char const	*get_parser_PATH_envp(t_pipex_parser *parser)
+static int	is_path_envp(const char *env)
 {
 	char const	*match;
-	char *const *envp;
 
 	match = "PATH=";
+	while (*match && *env)
+	{
+		if (*env != *match)
+		{
+			return (0);
+		}
+		match++;
+		env++;
+	}
+	return (1);
+}
+
+static char const	*get_parser_path_envp(t_pipex_parser *parser)
+{
+	char *const	*envp;
+
 	envp = parser->envp;
 	while (*envp)
 	{
-		if (/* check envp starts with the match string */)
+		if (is_path_envp(*envp))
 		{
 			return (*envp + 5);
 		}
@@ -66,29 +74,39 @@ static char const	*get_parser_PATH_envp(t_pipex_parser *parser)
 	return (NULL);
 }
 
+static t_pipex_parser	*set_expanded_path(char *expanded_path, \
+t_pipex_parser *parser)
+{
+	free(get_parser_executable(parser));
+	*((char **) parser->data) = expanded_path;
+	return (parser);
+}
+
 t_pipex_parser	*expand_executable_path(t_pipex_parser *parser)
 {
 	char const	*path_envp;
-	char		*expanded_executable_path;
+	char		*expanded_path;
+	char		*executable_name;
 	size_t		executable_name_len;
 
 	if (!parser)
-	{
 		return (NULL);
-	}
-	path_envp = get_parser_PATH_envp(parser);
-	executable_name_len = ft_strlen(((const char **) (parser->data))[0]);
-	expanded_executable_path = NULL;
+	path_envp = get_parser_path_envp(parser);
+	if (!path_envp)
+		return (NULL);
+	executable_name = get_parser_executable(parser);
+	executable_name_len = ft_strlen(executable_name);
 	while (*path_envp)
 	{
-		expanded_executable_path = expand_path(executable_name_len, parser);
-		if (access(expanded_executable_path, F_OK))
+		expanded_path = expand_path(&path_envp, \
+		executable_name, executable_name_len);
+		if (!expanded_path)
+			return (NULL);
+		if (access(expanded_path, F_OK) == 0)
 		{
-			// free first element of parser data
-			// set it to the expanded_path
-			// return parser
+			return (set_expanded_path(expanded_path, parser));
 		}
-		//free expanded_path, and continue the loop
+		free(expanded_path);
 	}
 	return (NULL);
 }

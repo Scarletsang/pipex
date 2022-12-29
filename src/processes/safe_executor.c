@@ -41,7 +41,7 @@ int	safe_execve_from_states(t_pipex_states *states)
 	{
 		return (1);
 	}
-	execve(((char **) get_parser_data(parser))[0], \
-			(char **) get_parser_data(parser), parser->envp);
+	execve(get_parser_executable(parser), \
+			get_parser_command(parser), parser->envp);
 	return (1);
 }
