@@ -6,13 +6,14 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 23:16:38 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/29 22:04:33 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/30 22:47:34 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_PATH_EXPANDER_H
 # define PIPEX_PATH_EXPANDER_H
 
+# include "../libft/pipex_libft.h"
 # include "../parser/pipex_parser.h"
 
 t_pipex_parser	*expand_executable_path(t_pipex_parser *parser);
