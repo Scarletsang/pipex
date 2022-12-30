@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 14:33:13 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/24 20:35:18 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/30 01:06:28 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,24 @@ int main(int argc, const char **argv, char *const *envp)
 {
 	t_pipex_states	*states;
 
-	// TODO: argc checker
+	if (argc < 5)
+	{
+		return (EXIT_FAILURE);
+	}
+	argv++;
 	states = init_states(argv, envp);
 	if (!states)
 	{
 		return (EXIT_FAILURE);
 	}
+	print_states(states);
 	fork_command_from_infile(states);
+	print_states(states);
 	while (!check_next_command_is_end(get_parser(states)))
 	{
 		fork_command(states);
 	}
 	fork_command_to_outfile(states);
+	print_states(states);
 	return (EXIT_SUCCESS);
 }
