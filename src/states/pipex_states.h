@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:55:29 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/30 18:48:31 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/30 23:15:46 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PIPEX_STATES_H
 
 # include <stdio.h>
-# include <string.h>
 # include <errno.h>
+# include "../libft/pipex_libft.h"
 # include "../parser/pipex_parser.h"
 
 typedef struct s_pipex_states
@@ -40,6 +40,8 @@ t_pipex_states	*init_states(char const **argv, char *const *envp);
 //////////////////////////////////
 
 void			handle_error(t_pipex_states *states);
+
+void			handle_command_not_found_error(t_pipex_states *states);
 
 int				crash_when_minus_1(int func_return_value, \
 t_pipex_states *states);
