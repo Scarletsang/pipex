@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 20:52:18 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/29 23:35:52 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/30 17:52:01 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	print_states(t_pipex_states *states)
 		i++;
 	}
 	print_indentation(2);
-	printf("write_pipe_index: %d", states->write_pipe_index);
+	printf("last_pipe_index: %d", states->last_pipe_index);
 	print_indentation(2);
 	printf("parser: ");
 	print_parser(&(states->parser));
