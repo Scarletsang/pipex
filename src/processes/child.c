@@ -40,8 +40,8 @@ int	run_command(t_pipex_states *states)
 	int	*last_pipe;
 	int	*next_pipe;
 
-	last_pipe = get_next_pipe(states);
-	next_pipe = get_last_pipe(states);
+	last_pipe = get_last_pipe(states);
+	next_pipe = get_next_pipe(states);
 	dup2(last_pipe[0], STDIN_FILENO);
 	dup2(next_pipe[1], STDOUT_FILENO);
 	close_pipe(last_pipe);
