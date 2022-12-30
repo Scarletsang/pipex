@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 19:14:09 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/24 18:54:38 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/30 18:27:51 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 t_pipex_states	*switch_pipe(t_pipex_states *states)
 {
-	if (states->write_pipe_index == 0)
+	if (states->last_pipe_index == 0)
 	{
-		states->write_pipe_index = 2;
+		states->last_pipe_index = 2;
 	}
 	else
 	{
-		states->write_pipe_index = 0;
+		states->last_pipe_index = 0;
 	}
 	return (states);
 }
 
-int	*get_write_pipe(t_pipex_states *states)
+int	*get_last_pipe(t_pipex_states *states)
 {
-	return (states->pipes + states->write_pipe_index);
+	return (states->pipes + states->last_pipe_index);
 }
 
-int	*get_read_pipe(t_pipex_states *states)
+int	*get_next_pipe(t_pipex_states *states)
 {
-	if (states->write_pipe_index == 0)
+	if (states->last_pipe_index == 0)
 	{
 		return (states->pipes + 2);
 	}
@@ -51,10 +51,10 @@ t_pipex_states	*init_states(char const **argv, char *const *envp)
 	states = malloc(sizeof(t_pipex_states));
 	if (!states)
 	{
-		strerror(errno);
+		perror(strerror(errno));
 		return (NULL);
 	}
-	states->write_pipe_index = 0;
+	states->last_pipe_index = 0;
 	init_parser(argv, envp, &states->parser);
 	return (states);
 }

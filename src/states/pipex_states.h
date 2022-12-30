@@ -6,13 +6,14 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:55:29 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/27 20:14:02 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/30 18:48:31 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_STATES_H
 # define PIPEX_STATES_H
 
+# include <stdio.h>
 # include <string.h>
 # include <errno.h>
 # include "../parser/pipex_parser.h"
@@ -20,15 +21,15 @@
 typedef struct s_pipex_states
 {
 	int				pipes[4];
-	int				write_pipe_index;
+	int				last_pipe_index;
 	t_pipex_parser	parser;
 }				t_pipex_states;
 
 t_pipex_states	*switch_pipe(t_pipex_states *states);
 
-int				*get_write_pipe(t_pipex_states *states);
+int				*get_last_pipe(t_pipex_states *states);
 
-int				*get_read_pipe(t_pipex_states *states);
+int				*get_next_pipe(t_pipex_states *states);
 
 t_pipex_parser	*get_parser(t_pipex_states *states);
 

@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:38:45 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/30 00:13:02 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/30 18:27:49 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int	run_command_from_infile(t_pipex_states *states)
 {
 	int	infile_fd;
-	int	*write_pipe;
+	int	*next_pipe;
 
 	infile_fd = safe_open_from_states(O_RDONLY, states);
 	if (infile_fd == -1)
 	{
-		strerror(errno);
+		perror(strerror(errno));
 		close(STDIN_FILENO);
 	}
 	else
@@ -28,44 +28,44 @@ int	run_command_from_infile(t_pipex_states *states)
 		dup2(infile_fd, STDIN_FILENO);
 		close(infile_fd);
 	}
-	write_pipe = get_write_pipe(states);
-	dup2(write_pipe[1], STDOUT_FILENO);
-	close_pipe(write_pipe);
+	next_pipe = get_next_pipe(states);
+	dup2(next_pipe[1], STDOUT_FILENO);
+	close_pipe(next_pipe);
 	parser_walk_forward(get_parser(states));
 	return (safe_execve_from_states(states));
 }
 
 int	run_command(t_pipex_states *states)
 {
-	int	*read_pipe;
-	int	*write_pipe;
+	int	*last_pipe;
+	int	*next_pipe;
 
-	read_pipe = get_read_pipe(states);
-	write_pipe = get_write_pipe(states);
-	dup2(read_pipe[0], STDIN_FILENO);
-	dup2(write_pipe[1], STDOUT_FILENO);
-	close_pipe(read_pipe);
-	close_pipe(write_pipe);
+	last_pipe = get_next_pipe(states);
+	next_pipe = get_last_pipe(states);
+	dup2(last_pipe[0], STDIN_FILENO);
+	dup2(next_pipe[1], STDOUT_FILENO);
+	close_pipe(last_pipe);
+	close_pipe(next_pipe);
 	return (safe_execve_from_states(states));
 }
 
 int	run_command_to_outfile(t_pipex_states *states)
 {
-	int	*read_pipe;
+	int	*last_pipe;
 	int	outfile_fd;
 
 	parser_walk_forward(get_parser(states));
 	outfile_fd = safe_open_from_states(O_TRUNC | O_CREAT | O_RDWR, states);
-	read_pipe = get_read_pipe(states);
+	last_pipe = get_last_pipe(states);
 	if (outfile_fd == -1)
 	{
-		close_pipe(read_pipe);
+		close_pipe(last_pipe);
 		return (-1);
 	}
 	dup2(outfile_fd, STDOUT_FILENO);
-	dup2(read_pipe[0], STDIN_FILENO);
+	dup2(last_pipe[0], STDIN_FILENO);
 	close(outfile_fd);
-	close_pipe(read_pipe);
+	close_pipe(last_pipe);
 	parser_walk_backward(get_parser(states));
 	return (safe_execve_from_states(states));
 }
