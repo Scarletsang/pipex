@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 23:41:46 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/29 23:47:45 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/02 23:29:33 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,20 @@ void	test_execve(char *const *envp)
 	execve(hi[0], hi, envp);
 }
 
+void	test_execve_script(char *const *envp)
+{
+	char	*hi[2];
+
+	hi[0] = "./targets/script space";
+	hi[1] = NULL;
+	execve(hi[0], hi, envp);
+}
+
 int	main(int argc, char **argv, char *const *envp)
 {
 	if (argc > 0 && argv)
 	{
-		test_forking_states(envp);
+		test_execve_script(envp);
 	}
 	return (0);
 }
