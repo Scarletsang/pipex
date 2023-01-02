@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 22:45:21 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/31 15:18:43 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/02 22:42:47 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@ char	*ft_strcpy(char *dest, const char *src);
 char	*ft_strjoin(char const *s1, char const *s2);
 
 char	*ft_strchr(const char *str, int c);
+
+int		ft_isspace(char c);
 
 #endif
