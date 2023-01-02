@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:38:45 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/30 23:18:29 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/02 19:05:14 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	run_command_from_infile(t_pipex_states *states)
 	infile_fd = safe_open_from_states(O_RDONLY, states);
 	if (infile_fd == -1)
 	{
-		close(STDIN_FILENO);
+		free_parser_data(get_parser(states));
+		return (-1);
 	}
 	else
 	{
