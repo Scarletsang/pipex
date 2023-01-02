@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:59:23 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/26 22:50:09 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:25:51 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_LEXER_H
 
 # include <stdlib.h>
+# include "../../libft/pipex_libft.h"
 
 typedef struct s_pipex_lexer_node
 {

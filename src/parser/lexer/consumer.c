@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 22:44:45 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/27 17:33:57 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:43:10 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static int	ft_isspace(char c)
 {
-	return (c == ' ' || c == '\t' || c == '\n' || \
-		c == '\v' || c == '\f' || c == '\r');
+	return (ft_strchr(" \t\n\v\f\r", c) != NULL);
 }
 
 static int	consume_escape_char(char const **command_args, \

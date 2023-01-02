@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:55:29 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/30 23:15:46 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:25:40 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdio.h>
 # include <errno.h>
-# include "../libft/pipex_libft.h"
 # include "../parser/pipex_parser.h"
 
 typedef struct s_pipex_states

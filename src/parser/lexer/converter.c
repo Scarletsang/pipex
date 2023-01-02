@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 00:06:53 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/27 20:35:06 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:44:10 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,41 @@ static char	**free_command(char **split_command, size_t count)
 	return (NULL);
 }
 
+static int	fill_quoted_split_command(char **split_command, \
+const char **command_args, t_pipex_lexer_node *lexer)
+{
+	size_t	i;
+
+	*split_command = malloc(lexer->length - 1);
+	if (!(*split_command))
+	{
+		return (1);
+	}
+	(*split_command)[lexer->length - 2] = 0;
+	i = 0;
+	(*command_args)++;
+	while (i < lexer->length - 2)
+	{
+		(*split_command)[i] = **command_args;
+		i++;
+		(*command_args)++;
+	}
+	(*command_args)++;
+	ignore_spaces(command_args);
+	return (0);
+}
+
 static int	fill_split_command(char **split_command, \
 const char **command_args, t_pipex_lexer_node *lexer)
 {
 	size_t	i;
 
+	if (ft_strchr("\'\"", **command_args) && \
+	ft_strchr("\'\"", *(*command_args + lexer->length)))
+	{
+		return (fill_quoted_split_command(split_command, \
+			command_args, lexer));
+	}
 	*split_command = malloc(lexer->length + 1);
 	if (!(*split_command))
 	{

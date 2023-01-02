@@ -1,4 +1,6 @@
 NAME=pipex
+LIBFT_SRC= \
+	libft/libft.c
 LEXER_SRC= \
 	parser/lexer/lexer.c \
 	parser/lexer/consumer.c \
@@ -8,8 +10,6 @@ PARSER_SRC= \
 	parser/parser_getter.c \
 	parser/parse_inputs.c \
 	parser/checker.c
-LIBFT_SRC= \
-	libft/libft.c
 STATES_SRC= \
 	states/states.c \
 	states/error.c
@@ -27,9 +27,9 @@ LIBFT_OBJS=${LIBFT_SRC:.c=.o}
 STATES_OBJS=${STATES_SRC:.c=.o}
 PATH_EXPANDER_OBJS=${PATH_EXPANDER_SRC:.c=.o}
 PROCESSES_OBJS=${PROCESSES_SRC:.c=.o}
-OBJS=${LEXER_OBJS} $(PARSER_OBJS) ${LIBFT_OBJS} ${STATES_OBJS} ${PATH_EXPANDER_OBJS} ${PROCESSES_OBJS} pipex_main.o
+OBJS=${LIBFT_OBJS} ${LEXER_OBJS} $(PARSER_OBJS) ${STATES_OBJS} ${PATH_EXPANDER_OBJS} ${PROCESSES_OBJS} pipex_main.o
 CC=cc
-CFLAGS= -g3 -fsanitize=address -Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror
 
 all: ${NAME}
 
@@ -40,9 +40,11 @@ pipex_main.o: ${PROCESSES_OBJS}
 
 ${PROCESSES_OBJS}: ${STATES_OBJS} ${PATH_EXPANDER_OBJS}
 
-${STATES_OBJS}: ${PARSER_OBJS} ${LIBFT_OBJS}
+${STATES_OBJS}: ${PARSER_OBJS}
 
 ${PARSER_OBJS}: ${LEXER_OBJS}
+
+${LEXER_OBJS}: ${LIBFT_OBJS}
 
 %.o: %.c
 	${CC} ${CFLAGS} -c $< -o $@

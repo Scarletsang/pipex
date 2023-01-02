@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 22:44:41 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/30 23:07:12 by htsang           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:18:25 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,29 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_strcpy(new_str, s1);
 	ft_strcpy(new_str + s1_len, s2);
 	return (new_str);
+}
+
+/**
+** @brief Locate the first given char in a given string.
+**
+** @param str: a NULL-terminated string
+** @param c:   the value to find in the string, it is interpreted
+** as char during search.
+** @return the memory address of the value in the string
+*/
+char	*ft_strchr(const char *str, int c)
+{
+	while (*str)
+	{
+		if (*str == (char) c)
+		{
+			return ((char *) str);
+		}
+		str++;
+	}
+	if ((char) c == 0)
+	{
+		return ((char *) str);
+	}
+	return (NULL);
 }
