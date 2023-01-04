@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:59:23 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/31 15:25:51 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/03 19:12:48 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ typedef struct s_pipex_lexer_node
 void				ignore_spaces(char const **str);
 
 t_pipex_lexer_node	*free_lexer(t_pipex_lexer_node *lexer);
+
+void				consume_char(char const **command_args, \
+t_pipex_lexer_node *lexer);
+
+int					consume_quoted_string(char const **command_args, \
+t_pipex_lexer_node *lexer);
 
 t_pipex_lexer_node	*consume_command_arg(char const **command_args, \
 t_pipex_lexer_node *lexer);

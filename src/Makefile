@@ -4,6 +4,7 @@ LIBFT_SRC= \
 LEXER_SRC= \
 	parser/lexer/lexer.c \
 	parser/lexer/consumer.c \
+	parser/lexer/quoted_string_consumer.c \
 	parser/lexer/converter.c
 PARSER_SRC= \
 	parser/parser.c \

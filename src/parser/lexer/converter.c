@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 00:06:53 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/02 22:28:37 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/03 19:51:10 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	**free_command(char **split_command, size_t count)
 	return (NULL);
 }
 
-static int	fill_quoted_split_command(char **split_command, \
+static int	fill_quoted_string(char **split_command, \
 const char **command_args, t_pipex_lexer_node *lexer)
 {
 	size_t	i;
@@ -52,17 +52,11 @@ const char **command_args, t_pipex_lexer_node *lexer)
 	return (0);
 }
 
-static int	fill_split_command(char **split_command, \
+static int	fill_default(char **split_command, \
 const char **command_args, t_pipex_lexer_node *lexer)
 {
 	size_t	i;
 
-	if (ft_strchr("\'\"", **command_args) && \
-	ft_strchr("\'\"", *(*command_args + lexer->length)))
-	{
-		return (fill_quoted_split_command(split_command, \
-			command_args, lexer));
-	}
 	*split_command = malloc(lexer->length + 1);
 	if (!(*split_command))
 	{
@@ -72,12 +66,26 @@ const char **command_args, t_pipex_lexer_node *lexer)
 	i = 0;
 	while (i < lexer->length)
 	{
-		(*split_command)[i] = **command_args;
-		i++;
+		if (**command_args != '\\')
+		{
+			(*split_command)[i] = **command_args;
+			i++;
+		}
 		(*command_args)++;
 	}
 	ignore_spaces(command_args);
 	return (0);
+}
+
+static int	fill_split_command(char **split_command, \
+const char **command_args, t_pipex_lexer_node *lexer)
+{
+	if (ft_strchr("\'\"", **command_args) && \
+	ft_strchr("\'\"", *(*command_args + lexer->length)))
+	{
+		return (fill_quoted_string(split_command, command_args, lexer));
+	}
+	return (fill_default(split_command, command_args, lexer));
 }
 
 char	**to_split_command(const char *command_args, t_pipex_lexer_node *lexer)
