@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:43:52 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/30 22:39:29 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/03 20:32:56 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	fork_command_from_infile(t_pipex_states *states)
 	if (safe_fork(states) == 0)
 	{
 		run_command_from_infile(states);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	wait(NULL);
 	switch_pipe(states);
@@ -32,7 +32,7 @@ void	fork_command(t_pipex_states *states)
 	if (safe_fork(states) == 0)
 	{
 		run_command(states);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	close_pipe(get_last_pipe(states));
 	wait(NULL);
@@ -40,16 +40,17 @@ void	fork_command(t_pipex_states *states)
 	parser_walk_forward(get_parser(states));
 }
 
-void	fork_command_to_outfile(t_pipex_states *states)
+int	fork_command_to_outfile(t_pipex_states *states)
 {
+	int	wstatus;
+
 	if (safe_fork(states) == 0)
 	{
 		run_command_to_outfile(states);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	close_pipe(get_next_pipe(states));
 	close_pipe(get_last_pipe(states));
-	wait(NULL);
-	parser_walk_forward(
-		parser_walk_forward(get_parser(states)));
+	wait(&wstatus);
+	return (WEXITSTATUS(wstatus));
 }

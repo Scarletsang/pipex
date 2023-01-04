@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 14:33:13 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/30 23:16:33 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/03 20:51:18 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ int	main(int argc, const char **argv, char *const *envp)
 	{
 		fork_command(states);
 	}
-	fork_command_to_outfile(states);
-	return (EXIT_SUCCESS);
+	return (fork_command_to_outfile(states));
 }
