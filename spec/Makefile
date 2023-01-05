@@ -21,7 +21,10 @@ parser:
 	${CC} ${CFLAGS} tests/test_parser.c tests/printers.c ${PARSER_SRCS} -o ${NAME}
 
 states:
-	${CC} ${CFLAGS} tests/test_states.c tests/printers.c ${STATES_SRCS} -o ${NAME}
+	${CC} ${CFLAGS} ${STATES_SRCS} tests/test_states.c tests/printers.c -o ${NAME}
+
+error:
+	${CC} ${CFLAGS} tests/test_error.c -o ${NAME}
 
 # targetall:
 # 	make -C ${TARGET_DIR} ${PROCESSES_OBJS}

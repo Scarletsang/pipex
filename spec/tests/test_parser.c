@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 23:41:46 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/04 00:31:15 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/04 18:58:00 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	test_parser(char *const *envp)
 	char			*argv[4];
 	t_pipex_parser	*parser;
 
-	argv[0] = "echo \"hel\\\"lo\" hihsdfsd hihisdf hisdf";
+	argv[0] = "awk '{print $2}'";
 	argv[1] = "script\\ name -l";
 	argv[2] = "ping www.google.com";
 	argv[3] = 0;
