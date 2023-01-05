@@ -24,8 +24,6 @@ typedef struct s_pipex_states
 	t_pipex_parser	parser;
 }				t_pipex_states;
 
-t_pipex_states	*switch_pipe(t_pipex_states *states);
-
 int				*get_last_pipe(t_pipex_states *states);
 
 int				*get_next_pipe(t_pipex_states *states);
