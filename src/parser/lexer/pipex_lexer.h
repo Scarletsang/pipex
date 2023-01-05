@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:59:23 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/05 14:21:39 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/06 00:34:21 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ t_pipex_lexer_node *lexer);
 
 int					run_converter_copier(char **split_command, \
 const char **command_args, t_pipex_lexer_node *lexer);
+
+const char			*get_escape_char(const char *str);
 
 #endif

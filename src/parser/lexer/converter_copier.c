@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:08:23 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/05 14:54:01 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/06 00:27:23 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,10 @@ const char **command_args)
 
 static int	skip_escape_char(const char **command_args)
 {
-	if (**command_args == '\\')
+	if (get_escape_char(*command_args))
 	{
-		if ((*command_args)[1])
-		{
-			(*command_args)++;
-			return (0);
-		}
+		(*command_args)++;
+		return (0);
 	}
 	return (1);
 }

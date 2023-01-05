@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 22:44:45 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/05 14:45:50 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/06 00:27:38 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@ void	ignore_spaces(char const **command_args)
 static int	consume_escape_char(char const **command_args, \
 t_pipex_lexer_node *lexer)
 {
-	if (**command_args == '\\')
+	if (get_escape_char(*command_args))
 	{
-		(*command_args)++;
-		if (**command_args)
-		{
-			consume_char(command_args, lexer);
-		}
+		*command_args += 2;
+		(lexer->length)++;
 		return (0);
 	}
 	return (1);

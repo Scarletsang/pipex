@@ -6,11 +6,20 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 00:06:53 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/05 13:50:34 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/06 00:28:00 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_lexer.h"
+
+const char	*get_escape_char(const char *str)
+{
+	if (*str == '\\')
+	{
+		return (str + 1);
+	}
+	return (NULL);
+}
 
 static char	**free_command(char **split_command, size_t count)
 {
