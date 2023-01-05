@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 20:52:18 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/30 17:52:01 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/05 12:46:20 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	print_states(t_pipex_states *states)
 	int	i = 0;
 
 	printf("=====================");
+	print_indentation(2);
+	printf("program name: %s", states->program_name);
 	print_indentation(2);
 	printf("pipes: ");
 	while (i < 4)

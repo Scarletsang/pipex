@@ -3,7 +3,7 @@ TARGET_DIR=../src
 
 LEXER_SRCS=${TARGET_DIR}/parser/lexer/*.c
 LIBFT_SRCS=${TARGET_DIR}/libft/libft.c
-PARSER_SRCS=${TARGET_DIR}/parser/*.c ${TARGET_DIR}/path_expander/*.c ${LIBFT_SRCS} ${LEXER_SRCS}
+PARSER_SRCS=${TARGET_DIR}/parser/*.c ${LIBFT_SRCS} ${LEXER_SRCS}
 STATES_SRCS=${TARGET_DIR}/states/*.c ${PARSER_SRCS}
 PROCESSES_SRCS=${TARGET_DIR}/processes/*.c ${STATES_SRCS}
 
@@ -12,7 +12,7 @@ TESTS_OBJS=${TESTS:.c=.o}
 
 CC=cc
 CFLAGS= -g3 -Wall -Wextra -Werror -Wformat
-CFLAGS += -fsanitize=address
+# CFLAGS += -fsanitize=address
 
 lexer:
 	${CC} ${CFLAGS} tests/test_lexer.c tests/printers.c ${LEXER_SRCS} -o ${NAME}

@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 23:41:46 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/04 19:53:06 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/05 14:58:35 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	test_forking_states(char **argv, char *const *envp)
 	t_pipex_parser	*parser;
 	pid_t			pid;
 
-	argv++;
 	states = init_states((const char **) argv, envp);
 	pid = fork();
 	if (pid == 0)
