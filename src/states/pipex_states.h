@@ -6,16 +6,13 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:55:29 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/05 01:27:59 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/06 00:33:01 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_STATES_H
 # define PIPEX_STATES_H
 
-# include <stdio.h>
-# include <unistd.h>
-# include <errno.h>
 # include "../parser/pipex_parser.h"
 
 typedef struct s_pipex_states
@@ -38,9 +35,13 @@ t_pipex_states	*init_states(char const **argv, char *const *envp);
 ////      crash on error     /////
 //////////////////////////////////
 
-void			handle_error(t_pipex_states *states);
+int				handle_program_error(t_pipex_states *states);
 
-void			handle_command_not_found_error(char *executable, \
+int				handle_child_error(t_pipex_states *states);
+
+int				handle_file_permission_error(t_pipex_states *states);
+
+int				handle_command_not_found_error(char *executable, \
 t_pipex_states *states);
 
 int				crash_when_minus_1(int func_return_value, \
@@ -50,9 +51,16 @@ t_pipex_states *states);
 ////      Error printer      /////
 //////////////////////////////////
 
-void			print_not_found_error(char *executable, \
+void			print_program_error(const char *program_name, \
+const char *error_msg);
+
+void			print_child_error(const char *program_name, \
+const char *executable, const char *error_msg);
+
+void			print_command_not_found_error(char *executable, \
 t_pipex_states *states);
 
 void			print_no_file_error(t_pipex_states *states);
 
+void			print_file_permission_error(t_pipex_states *states);
 #endif
