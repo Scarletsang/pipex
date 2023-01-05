@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 14:33:13 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/03 20:51:18 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/05 01:42:06 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int argc, const char **argv, char *const *envp)
 	{
 		return (EXIT_FAILURE);
 	}
-	argv++;
 	states = init_states(argv, envp);
 	if (!states)
 	{
