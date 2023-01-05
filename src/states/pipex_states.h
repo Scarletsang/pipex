@@ -63,4 +63,13 @@ t_pipex_states *states);
 void			print_no_file_error(t_pipex_states *states);
 
 void			print_file_permission_error(t_pipex_states *states);
+
+//////////////////////////////////
+////        Utilities        /////
+//////////////////////////////////
+
+int				is_a_path(char *command);
+
+const char		*get_program_name(char const *argv);
+
 #endif

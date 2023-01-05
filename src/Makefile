@@ -15,7 +15,8 @@ PARSER_SRC= \
 STATES_SRC= \
 	states/states.c \
 	states/error.c \
-	states/error_printer.c
+	states/error_printer.c \
+	states/utils.c
 PROCESSES_SRC= \
 	processes/child.c \
 	processes/parent.c \
