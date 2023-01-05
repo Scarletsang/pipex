@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:43:52 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/03 20:32:56 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/04 22:17:16 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	fork_command_to_outfile(t_pipex_states *states)
 		run_command_to_outfile(states);
 		exit(127);
 	}
-	close_pipe(get_next_pipe(states));
 	close_pipe(get_last_pipe(states));
 	wait(&wstatus);
 	return (WEXITSTATUS(wstatus));

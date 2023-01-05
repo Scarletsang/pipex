@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:38:45 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/02 19:05:14 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/05 01:37:54 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	run_command_to_outfile(t_pipex_states *states)
 	last_pipe = get_last_pipe(states);
 	if (outfile_fd == -1)
 	{
+		free_parser_data(get_parser(states));
 		close_pipe(last_pipe);
 		return (-1);
 	}
