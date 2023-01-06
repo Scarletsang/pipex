@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:34:22 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/27 21:32:56 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/06 21:50:08 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_pipex_parser	*parser_walk_forward(t_pipex_parser *parser)
 {
-	if (parser && parsing_ended(parser))
+	if (!parser || parsing_ended(parser))
 	{
 		return (NULL);
 	}
