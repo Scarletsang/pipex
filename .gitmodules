@@ -1,0 +1,4 @@
+[submodule "src/heredoc/get_next_line"]
+	path = src/heredoc/get_next_line
+	url = https://github.com/Scarletsang/get_next_line.git
+	branch = submit

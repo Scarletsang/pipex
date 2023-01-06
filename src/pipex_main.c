@@ -6,17 +6,18 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 14:33:13 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/05 01:42:06 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/06 23:40:03 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "processes/pipex_processes.h"
+#include "heredoc/pipex_heredoc.h"
 
 int	main(int argc, const char **argv, char *const *envp)
 {
 	t_pipex_states	*states;
 
-	if (argc < 5)
+	if (argc < 5 || (is_heredoc(argv[1]) && argc < 6))
 	{
 		return (EXIT_FAILURE);
 	}
@@ -25,7 +26,14 @@ int	main(int argc, const char **argv, char *const *envp)
 	{
 		return (EXIT_FAILURE);
 	}
-	fork_command_from_infile(states);
+	if (parse_heredoc(get_parser(states)))
+	{
+		fork_command_from_heredoc(states);
+	}
+	else
+	{
+		fork_command_from_infile(states);
+	}
 	while (!check_next_command_is_end(get_parser(states)))
 	{
 		fork_command(states);
