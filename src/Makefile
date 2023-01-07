@@ -40,7 +40,8 @@ CFLAGS= -Wall -Wextra -Werror
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+	@${CC} ${CFLAGS} ${OBJS} -o ${NAME} && \
+		echo "Compilation successful"
 
 pipex_main.o: ${PROCESSES_OBJS} ${HEREDOC_OBJS}
 
@@ -55,13 +56,13 @@ ${PARSER_OBJS}: ${LEXER_OBJS}
 ${LEXER_OBJS}: ${LIBFT_OBJS}
 
 %.o: %.c
-	${CC} ${CFLAGS} -c $< -o $@
+	@${CC} ${CFLAGS} -c $< -o $@
 
 clean:
-	rm -f ${OBJS}
+	@rm -f ${OBJS}
 
 fclean: clean
-	rm -f ${NAME}
+	@rm -f ${NAME}
 
 re: fclean all
 
