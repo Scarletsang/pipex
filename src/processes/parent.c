@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:43:52 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/07 00:12:41 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/07 15:46:06 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	fork_command_from_infile(t_pipex_states *states)
 	if (safe_fork(states) == 0)
 	{
 		run_command_from_infile(states);
+		free(states);
 		exit(127);
 	}
 	switch_pipe(states);
@@ -31,6 +32,7 @@ void	fork_command(t_pipex_states *states)
 	if (safe_fork(states) == 0)
 	{
 		run_command(states);
+		free(states);
 		exit(127);
 	}
 	close_pipe(get_last_pipe(states));
@@ -38,7 +40,7 @@ void	fork_command(t_pipex_states *states)
 	parser_walk_forward(get_parser(states));
 }
 
-int	fork_command_to_outfile(t_pipex_states *states)
+int	fork_command_to_outfile(int permission, t_pipex_states *states)
 {
 	int		wstatus;
 	pid_t	pid;
@@ -46,7 +48,8 @@ int	fork_command_to_outfile(t_pipex_states *states)
 	pid = safe_fork(states);
 	if (pid == 0)
 	{
-		run_command_to_outfile(states);
+		run_command_to_outfile(permission, states);
+		free(states);
 		exit(127);
 	}
 	close_pipe(get_last_pipe(states));

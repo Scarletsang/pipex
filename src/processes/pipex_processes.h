@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:39:00 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/05 00:54:24 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/07 15:46:14 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			fork_command_from_infile(t_pipex_states *states);
 
 void			fork_command(t_pipex_states *states);
 
-int				fork_command_to_outfile(t_pipex_states *states);
+int				fork_command_to_outfile(int permission, t_pipex_states *states);
 
 ////////////////////////////////////
 ////      Child processes      /////
@@ -35,7 +35,7 @@ int				run_command_from_infile(t_pipex_states *states);
 
 int				run_command(t_pipex_states *states);
 
-int				run_command_to_outfile(t_pipex_states *states);
+int				run_command_to_outfile(int permission, t_pipex_states *states);
 
 ////////////////////////////////////////////////
 ////      safe execution of functions      /////
