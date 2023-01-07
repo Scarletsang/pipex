@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:58:24 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/07 15:59:05 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/07 16:51:12 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	heredoc_main(int argc, const char **argv, char *const *envp)
 
 	if (argc < 6)
 	{
+		write(STDOUT_FILENO, \
+			"usage: ./pipex here_doc LIMITER cmd1 cmd2 ... outfile\n", 54);
 		return (EXIT_FAILURE);
 	}
 	states = init_states(argv, envp);

@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 14:33:13 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/07 15:56:30 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/07 16:51:02 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ int	main(int argc, const char **argv, char *const *envp)
 {
 	t_pipex_states	*states;
 
-	if (argc < 5)
-	{
-		return (EXIT_FAILURE);
-	}
-	if (is_heredoc(argv[1]))
+	if (argc > 1 && is_heredoc(argv[1]))
 	{
 		return (heredoc_main(argc, argv, envp));
+	}
+	if (argc < 5)
+	{
+		write(STDOUT_FILENO, \
+			"usage: ./pipex infile cmd1 cmd2 ... outfile\n", 44);
+		return (EXIT_FAILURE);
 	}
 	states = init_states(argv, envp);
 	if (!states)
