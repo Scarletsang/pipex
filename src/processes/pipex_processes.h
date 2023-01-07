@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:39:00 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/07 15:46:14 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/07 20:09:52 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_PROCESSES_H
 
 # include <fcntl.h>
+# include <sys/wait.h>
 # include <unistd.h>
 # include "../states/pipex_states.h"
 
