@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:39:00 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/08 17:10:35 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/08 19:03:51 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,5 @@ t_pipex_exit_code	safe_execve_from_states(t_pipex_states *states);
 ////////////////////////////////////
 
 void				close_pipe(int pipe[2]);
-
-t_pipex_states		*switch_pipe(t_pipex_states *states);
 
 #endif

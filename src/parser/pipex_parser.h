@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:59:23 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/05 01:24:59 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/08 18:43:26 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ typedef enum e_data_type
 	COMMAND
 }				t_data_type;
 
-typedef struct s_pipex_lexer
-{
-	size_t					length;
-	struct s_pipex_lexer	*next;
-}					t_pipex_lexer;
-
+/**
+ * @brief A parser object that keeps track of the unparsed
+ * commands, and the environmental variable that is needed during
+ * parsing. The parsed command is saved in the 'data' field, and
+ * the 'data_type' corresponds to the type of the data so parser
+ * knows whether or not to free it when the program ends.
+ */
 typedef struct s_pipex_parser
 {
 	char *const	*envp;

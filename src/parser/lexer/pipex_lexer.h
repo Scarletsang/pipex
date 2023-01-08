@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:59:23 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/06 00:34:21 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/08 18:51:01 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 # include <stdlib.h>
 # include "../../libft/pipex_libft.h"
 
+/**
+ * @brief The lexer splits a command (as a string) into an array of
+ * string. To achieve this, the lexer creates an intermidiate linked
+ * list of integers, each node represents the length of an argument.
+ * The head of the linked list, however, is different, it saves the
+ * amount of arguments required to malloc for the command.
+ * 
+ * @details The lexer first lexed the command into a linked list,
+ * then converter will convert the linked list into an array of 
+ * arguments.
+ */
 typedef struct s_pipex_lexer_node
 {
 	size_t						length;

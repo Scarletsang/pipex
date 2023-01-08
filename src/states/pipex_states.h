@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:55:29 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/08 18:23:29 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/08 19:18:23 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,27 @@
 
 # include "../parser/pipex_parser.h"
 
+/////////////////////////////////////
+////      The state object      /////
+/////////////////////////////////////
+
+/**
+ * @brief A singleton object storing all states needed for
+ * the whole pipex program.
+ * 
+ * @details The program holds two pipes (4 file descriptors) at
+ * maximum to pipe data between the commands. A pipe is created
+ * whenever there is a next command to pipe to. The oldest pipe
+ * is closed when a new pipe is created. From the perspective of
+ * the command, last pipe is the pipe to read from, and next pipe
+ * is the pipe to write to. However, in the next command, the
+ * previous 'next pipe' has became the 'last pipe' for this
+ * command to read from. The 'last_pipe_index' field is used to
+ * keep track of this perspective. The functions 'get_last_pipe()',
+ * 'get_next_pipe()' and 'switch_pipe()' provides an interface to
+ * get the needed pipe, and switching perspectives.
+ * 
+ */
 typedef struct s_pipex_states
 {
 	const char		*program_name;
@@ -29,12 +50,24 @@ int					*get_next_pipe(t_pipex_states *states);
 
 t_pipex_parser		*get_parser(t_pipex_states *states);
 
+t_pipex_states		*switch_pipe(t_pipex_states *states);
+
 t_pipex_states		*init_states(char const **argv, char *const *envp);
 
 //////////////////////////////////
-////      crash on error     /////
+////      Error handler      /////
 //////////////////////////////////
 
+/**
+ * @brief Each error handler do 3 things:
+ * 1. Calls the corresponding error printer to print error messages.
+ * 2. Free the state object, and other varaibles (if any).
+ * 3. Returns the correct exit code representing the error.
+*/
+
+/**
+ * @brief Enum for different possible exit codes for pipex
+ */
 typedef enum e_pipex_exit_code
 {
 	PROGRAM_SUCCESS = EXIT_SUCCESS,
