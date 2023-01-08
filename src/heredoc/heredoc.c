@@ -6,13 +6,13 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:58:24 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/07 16:51:12 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/08 18:23:28 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_heredoc.h"
 
-static int	pipex_heredoc(int fd, const char *delimiter)
+static t_pipex_exit_code	pipex_heredoc(int fd, const char *delimiter)
 {
 	char	*line;
 
@@ -22,17 +22,17 @@ static int	pipex_heredoc(int fd, const char *delimiter)
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
 		{
-			return (EXIT_FAILURE);
+			return (PROGRAM_FAILURE);
 		}
 		if (is_delimiter_with_new_line(line, delimiter))
 		{
 			free(line);
-			return (EXIT_SUCCESS);
+			return (PROGRAM_SUCCESS);
 		}
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
-	return (EXIT_FAILURE);
+	return (PROGRAM_FAILURE);
 }
 
 static t_pipex_parser	*parse_heredoc(t_pipex_parser *parser)
@@ -43,10 +43,10 @@ static t_pipex_parser	*parse_heredoc(t_pipex_parser *parser)
 	return (parser);
 }
 
-static int	run_heredoc(t_pipex_states *states)
+static t_pipex_exit_code	run_heredoc(t_pipex_states *states)
 {
-	int	*next_pipe;
-	int	exit_code;
+	int					*next_pipe;
+	t_pipex_exit_code	exit_code;
 
 	next_pipe = get_next_pipe(states);
 	parser_walk_forward(get_parser(states));
@@ -56,20 +56,21 @@ static int	run_heredoc(t_pipex_states *states)
 	return (exit_code);
 }
 
-static void	fork_command_from_heredoc(t_pipex_states *states)
+static void	fork_heredoc(t_pipex_states *states)
 {
-	int		wstatus;
-	pid_t	pid;
+	t_pipex_exit_code	exit_code;
+	int					wstatus;
+	pid_t				pid;
 
 	parse_heredoc(get_parser(states));
 	safe_pipe(get_next_pipe(states), states);
 	pid = safe_fork(states);
 	if (pid == 0)
 	{
-		wstatus = run_heredoc(states);
+		exit_code = run_heredoc(states);
 		free_parser_data(get_parser(states));
 		free(states);
-		exit(wstatus);
+		exit(exit_code);
 	}
 	waitpid(pid, &wstatus, 0);
 	if (!WIFEXITED(wstatus))
@@ -96,7 +97,7 @@ int	heredoc_main(int argc, const char **argv, char *const *envp)
 	{
 		return (EXIT_FAILURE);
 	}
-	fork_command_from_heredoc(states);
+	fork_heredoc(states);
 	while (!check_next_command_is_end(get_parser(states)))
 	{
 		fork_command(states);

@@ -6,13 +6,13 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:38:45 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/07 15:44:26 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/08 18:23:28 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_processes.h"
 
-int	run_command_from_infile(t_pipex_states *states)
+t_pipex_exit_code	run_command_from_infile(t_pipex_states *states)
 {
 	int	infile_fd;
 	int	*next_pipe;
@@ -21,7 +21,7 @@ int	run_command_from_infile(t_pipex_states *states)
 	if (infile_fd == -1)
 	{
 		free_parser_data(get_parser(states));
-		return (-1);
+		return (PROGRAM_FAILURE);
 	}
 	else
 	{
@@ -35,7 +35,7 @@ int	run_command_from_infile(t_pipex_states *states)
 	return (safe_execve_from_states(states));
 }
 
-int	run_command(t_pipex_states *states)
+t_pipex_exit_code	run_command(t_pipex_states *states)
 {
 	int	*last_pipe;
 	int	*next_pipe;
@@ -49,7 +49,8 @@ int	run_command(t_pipex_states *states)
 	return (safe_execve_from_states(states));
 }
 
-int	run_command_to_outfile(int permission, t_pipex_states *states)
+t_pipex_exit_code	run_command_to_outfile(int permission, \
+t_pipex_states *states)
 {
 	int	*last_pipe;
 	int	outfile_fd;
@@ -61,7 +62,7 @@ int	run_command_to_outfile(int permission, t_pipex_states *states)
 	{
 		free_parser_data(get_parser(states));
 		close_pipe(last_pipe);
-		return (-1);
+		return (PROGRAM_FAILURE);
 	}
 	dup2(outfile_fd, STDOUT_FILENO);
 	dup2(last_pipe[0], STDIN_FILENO);
