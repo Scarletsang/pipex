@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 00:23:03 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/06 00:36:07 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/08 22:30:01 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_a_path(char *command)
 		{
 			return (1);
 		}
-		if (get_escape_char((const char *) command))
+		if (peek_behind_escape_char((const char *) command))
 		{
 			command++;
 		}
@@ -42,7 +42,7 @@ const char	*get_program_name(const char *argv)
 		{
 			program_name = argv + 1;
 		}
-		if (get_escape_char(argv))
+		if (peek_behind_escape_char(argv))
 		{
 			argv++;
 		}

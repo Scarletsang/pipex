@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 23:25:40 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/05 01:33:12 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/08 22:30:10 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,6 @@ char *executable_name, size_t executable_name_len)
 	return (expanded_path);
 }
 
-static int	is_path_envp(const char *env)
-{
-	char const	*match;
-
-	match = "PATH=";
-	while (*match && *env)
-	{
-		if (*env != *match)
-		{
-			return (0);
-		}
-		match++;
-		env++;
-	}
-	return (1);
-}
-
 static char const	*get_parser_path_envp(t_pipex_parser *parser)
 {
 	char *const	*envp;
@@ -79,7 +62,7 @@ static char const	*get_parser_path_envp(t_pipex_parser *parser)
 	envp = parser->envp;
 	while (*envp)
 	{
-		if (is_path_envp(*envp))
+		if (peek_behind_matching_str("PATH=", *envp))
 		{
 			return (*envp + 5);
 		}
@@ -88,6 +71,16 @@ static char const	*get_parser_path_envp(t_pipex_parser *parser)
 	return (NULL);
 }
 
+/**
+ * @brief In order to run a command in execve(), it has to be expanded
+ * to a path to an executable with the same name. This function gets the
+ * PATHs from the environmental variables stored in the parser object, 
+ * and try to look for an executable name that are accessible in the
+ * `data` field of the parser object.
+ * @param parser 
+ * @return the parser object with the executable in the data expanded,
+ * or NULL if the executable is not found in PATH.
+ */
 t_pipex_parser	*expand_executable_path(t_pipex_parser *parser)
 {
 	char const	*path_envp;

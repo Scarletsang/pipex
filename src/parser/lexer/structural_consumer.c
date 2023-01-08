@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   consumer.c                                         :+:      :+:    :+:   */
+/*   structural_consumer.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 22:44:45 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/06 00:27:38 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/08 22:30:01 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_lexer.h"
 
-void	consume_char(char const **command_args, \
-t_pipex_lexer_node *lexer)
-{
-	(lexer->length)++;
-	(*command_args)++;
-}
-
-void	ignore_spaces(char const **command_args)
-{
-	while (**command_args && ft_isspace(**command_args))
-	{
-		(*command_args)++;
-	}
-}
-
 static int	consume_escape_char(char const **command_args, \
 t_pipex_lexer_node *lexer)
 {
-	if (get_escape_char(*command_args))
+	if (peek_behind_escape_char(*command_args))
 	{
 		*command_args += 2;
 		(lexer->length)++;

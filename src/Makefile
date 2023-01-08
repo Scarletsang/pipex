@@ -3,7 +3,8 @@ LIBFT_SRC= \
 	libft/libft.c
 LEXER_SRC= \
 	parser/lexer/lexer.c \
-	parser/lexer/consumer.c \
+	parser/lexer/structural_consumer.c \
+	parser/lexer/word_consumer.c \
 	parser/lexer/converter.c \
 	parser/lexer/converter_copier.c
 PARSER_SRC= \
