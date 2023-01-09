@@ -6,12 +6,20 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:01:05 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/26 00:25:17 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/09 00:50:09 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_parser.h"
 
+/**
+ * @brief Parse the input in the parser object into an
+ * array of command arguments, storing inside the `data`
+ * field of the parser object.
+ * @param parser the parser object
+ * @return the parser object, but with the parsed data stored
+ * in the `data` field. Returns NULL if parsing fails.
+ */
 t_pipex_parser	*parse_command(t_pipex_parser *parser)
 {
 	char	**split_command;
@@ -28,6 +36,13 @@ t_pipex_parser	*parse_command(t_pipex_parser *parser)
 	return (parser);
 }
 
+/**
+ * @brief Parse the input in the parser object as a filename,
+ * storing it directly inside the `data` field of the parser object.
+ * @param parser the parser object
+ * @return the parser object, but with the parsed data stored
+ * in the `data` field.
+ */
 t_pipex_parser	*parse_filename(t_pipex_parser *parser)
 {
 	free_parser_data(parser);

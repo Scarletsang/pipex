@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 23:25:40 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/08 22:30:10 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/09 00:58:54 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,29 @@ size_t executable_name_len)
 	return (expand_path_len + 1 + executable_name_len);
 }
 
+static char const	*get_parser_path_envp(t_pipex_parser *parser)
+{
+	char *const	*envp;
+
+	envp = parser->envp;
+	while (*envp)
+	{
+		if (peek_behind_matching_str("PATH=", *envp))
+		{
+			return (*envp + 5);
+		}
+		envp++;
+	}
+	return (NULL);
+}
+
+/**
+ * @brief Concatenate the a path to an executable name.
+ * @param path_envp the PATH enironmental varaible as a string
+ * @param executable_name name of the executable
+ * @param executable_name_len length of the executable name
+ * @return A new string with the executable name expanded with a path
+ */
 static char	*expand_path(char const **path_envp, \
 char *executable_name, size_t executable_name_len)
 {
@@ -53,22 +76,6 @@ char *executable_name, size_t executable_name_len)
 	expanded_path[i++] = '/';
 	ft_strcpy(expanded_path + i, executable_name);
 	return (expanded_path);
-}
-
-static char const	*get_parser_path_envp(t_pipex_parser *parser)
-{
-	char *const	*envp;
-
-	envp = parser->envp;
-	while (*envp)
-	{
-		if (peek_behind_matching_str("PATH=", *envp))
-		{
-			return (*envp + 5);
-		}
-		envp++;
-	}
-	return (NULL);
 }
 
 /**

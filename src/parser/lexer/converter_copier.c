@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:08:23 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/08 22:30:01 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/09 00:37:17 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ static int	skip_escape_char(const char **command_args)
 	return (1);
 }
 
+/**
+ * @brief The actual doer to converts each lexer node into an argument.
+ * @param split_command the array of string to be passed to execve()
+ * eventually.
+ * @param command_args memory address of a command string input by the user 
+ * @param lexer a lexer node
+ * @return an integer signifying if function copies byte successfully.
+ */
 static int	converter_copier(char **split_command, \
 const char **command_args, t_pipex_lexer_node *lexer)
 {
@@ -56,6 +64,14 @@ const char **command_args, t_pipex_lexer_node *lexer)
 	return (0);
 }
 
+/**
+ * @brief Calls the copier to create the split command eventually.
+ * @param split_command the array of string to be passed to execve()
+ * eventually.
+ * @param command_args memory address of a command string input by the user
+ * @param lexer a lexer node
+ * @return an integer signifying if function copies byte successfully.
+ */
 int	run_converter_copier(char **split_command, \
 const char **command_args, t_pipex_lexer_node *lexer)
 {

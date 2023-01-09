@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 21:39:33 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/27 16:58:08 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/09 00:45:51 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ static t_pipex_lexer_node	*lexer_new_node(size_t length)
 	return (lexer);
 }
 
+/**
+ * @brief Converts a string representing a command to an intimediate
+ * lexer linked list. Eventually the linked list will be handed to
+ * the converter to convert it into an array of string, each representing
+ * an command argument. This function calls different consumers, to consume
+ * quotes, characters, and escape characters. Space will be used as
+ * delimiter between command arguments.
+ * @param command_args The command arguments represented in plain text.
+ * @return The head of a lexer linked list
+ */
 t_pipex_lexer_node	*lex_command(const char *command_args)
 {
 	t_pipex_lexer_node	*lexer_head;
