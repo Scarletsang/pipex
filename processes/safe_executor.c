@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:14:17 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/08 17:09:44 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/09 23:00:26 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,13 @@ t_pipex_exit_code	safe_execve_from_states(t_pipex_states *states)
 		return (handle_program_error(states));
 	}
 	unexpanded_executable = get_parser_executable(parser);
-	expand_executable_path(parser);
-	if (!is_a_path(get_parser_executable(parser)))
+	if (!is_a_path(unexpanded_executable))
 	{
-		return (handle_command_not_found_error(unexpanded_executable, states));
+		if (!expand_executable_path(parser))
+		{
+			return (handle_command_not_found_error(unexpanded_executable, \
+			states));
+		}
 	}
 	execve(get_parser_executable(parser), \
 			get_parser_command(parser), parser->envp);
