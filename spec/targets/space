@@ -1,10 +1,0 @@
-Script started on Tue Jan  3 19:03:17 2023
-hi
-^D[0;32msourced /Users/htsang/Utils/toolbox/42project_setup/42project.sh[0m
-[0;32msourced /Users/htsang/Utils/toolbox/cbmc/cbmc.sh[0m
-[0;32msourced /Users/htsang/Utils/toolbox/valgrind/valgrind.sh[0m
-[1m[7m%[27m[1m[0m                                                                                [0m[27m[24m[Jhtsang@2-D-9 targets % [K[?2004hhhi[?2004l
-zsh: command not found: hi
-[1m[7m%[27m[1m[0m                                                                                [0m[27m[24m[Jhtsang@2-D-9 targets % [K[?2004h[?2004l
-
-Script done on Tue Jan  3 19:03:17 2023

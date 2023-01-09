@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests.h                                            :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/26 23:41:51 by htsang            #+#    #+#             */
-/*   Updated: 2022/12/28 21:36:30 by htsang           ###   ########.fr       */
+/*   Created: 2022/11/12 22:08:36 by htsang            #+#    #+#             */
+/*   Updated: 2022/11/20 20:57:49 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTS_H
-# define TESTS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# include <stdio.h>
-# include "../../src/processes/pipex_processes.h"
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
-void	print_split(char **split_str);
+# include <unistd.h>
+# include <stdlib.h>
 
-void	print_lexer_nodes(t_pipex_lexer_node *lexer);
+char	*get_next_line(int fd);
 
-void	print_parser(t_pipex_parser *parser);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
 
-void	print_states(t_pipex_states *states);
+char	*ft_strljoin(char *target, char const *str, size_t len);
 
-void	print_indentation(int n);
+char	*ft_strdup(const char *str);
 
 #endif
