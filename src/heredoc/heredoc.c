@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:58:24 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/08 18:23:28 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:43:40 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	fork_heredoc(t_pipex_states *states)
 
 int	heredoc_main(int argc, const char **argv, char *const *envp)
 {
-	t_pipex_states	*states;
+	t_pipex_states	states;
 
 	if (argc < 6)
 	{
@@ -92,15 +92,11 @@ int	heredoc_main(int argc, const char **argv, char *const *envp)
 			"usage: ./pipex here_doc LIMITER cmd1 cmd2 ... outfile\n", 54);
 		return (EXIT_FAILURE);
 	}
-	states = init_states(argv, envp);
-	if (!states)
+	init_states(argv, envp, &states);
+	fork_heredoc(&states);
+	while (!check_next_command_is_end(get_parser(&states)))
 	{
-		return (EXIT_FAILURE);
+		fork_command(&states);
 	}
-	fork_heredoc(states);
-	while (!check_next_command_is_end(get_parser(states)))
-	{
-		fork_command(states);
-	}
-	return (fork_command_to_outfile(O_APPEND | O_CREAT | O_RDWR, states));
+	return (fork_command_to_outfile(O_APPEND | O_CREAT | O_RDWR, &states));
 }

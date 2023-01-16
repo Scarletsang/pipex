@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 14:33:13 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/07 16:51:02 by htsang           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:41:56 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	main(int argc, const char **argv, char *const *envp)
 {
-	t_pipex_states	*states;
+	t_pipex_states	states;
 
 	if (argc > 1 && is_heredoc(argv[1]))
 	{
@@ -27,15 +27,11 @@ int	main(int argc, const char **argv, char *const *envp)
 			"usage: ./pipex infile cmd1 cmd2 ... outfile\n", 44);
 		return (EXIT_FAILURE);
 	}
-	states = init_states(argv, envp);
-	if (!states)
+	init_states(argv, envp, &states);
+	fork_command_from_infile(&states);
+	while (!check_next_command_is_end(get_parser(&states)))
 	{
-		return (EXIT_FAILURE);
+		fork_command(&states);
 	}
-	fork_command_from_infile(states);
-	while (!check_next_command_is_end(get_parser(states)))
-	{
-		fork_command(states);
-	}
-	return (fork_command_to_outfile(O_TRUNC | O_CREAT | O_RDWR, states));
+	return (fork_command_to_outfile(O_TRUNC | O_CREAT | O_RDWR, &states));
 }
