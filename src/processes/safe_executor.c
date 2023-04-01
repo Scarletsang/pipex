@@ -6,11 +6,14 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:14:17 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/09 22:42:03 by htsang           ###   ########.fr       */
+/*   Updated: 2023/04/01 21:45:11 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_processes.h"
+#include <unistd.h>
+
+extern char	**environ;
 
 int	safe_pipe(int fds[2], t_pipex_states *states)
 {
@@ -40,27 +43,25 @@ int	safe_open_from_states(int permission, t_pipex_states *states)
 t_pipex_exit_code	safe_execve_from_states(t_pipex_states *states)
 {
 	t_pipex_parser	*parser;
-	char			*unexpanded_executable;
+	char			*executable_path;
 
 	parser = get_parser(states);
 	if (parsing_failed(parse_command(parser)))
 	{
 		return (handle_program_error(states));
 	}
-	unexpanded_executable = get_parser_executable(parser);
-	if (!is_a_path(unexpanded_executable))
+	executable_path = get_parser_command(parser)[0];
+	if (!is_a_path(executable_path))
 	{
-		if (!expand_executable_path(parser))
-		{
-			return (handle_command_not_found_error(unexpanded_executable, \
-			states));
-		}
+		executable_path = expand_executable_path(parser);
+		if (!executable_path)
+			return (handle_command_not_found_error(\
+				get_parser_command(parser)[0], states));
 	}
-	execve(get_parser_executable(parser), \
-			get_parser_command(parser), parser->envp);
-	if (access(get_parser_executable(parser), X_OK) == -1)
+	if (access(executable_path, X_OK) == -1)
 	{
 		return (handle_file_permission_error(states));
 	}
-	return (handle_command_not_found_error(unexpanded_executable, states));
+	execve(executable_path, get_parser_command(parser), environ);
+	return (handle_command_not_found_error(executable_path, states));
 }

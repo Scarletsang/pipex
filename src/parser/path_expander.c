@@ -6,12 +6,14 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 23:25:40 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/09 00:58:54 by htsang           ###   ########.fr       */
+/*   Updated: 2023/04/01 21:10:01 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "pipex_parser.h"
+
+extern char	**environ;
 
 static size_t	ft_expanded_pathlen(char const *path_envp, \
 size_t executable_name_len)
@@ -27,11 +29,11 @@ size_t executable_name_len)
 	return (expand_path_len + 1 + executable_name_len);
 }
 
-static char const	*get_parser_path_envp(t_pipex_parser *parser)
+static char const	*get_parser_path_envp(void)
 {
 	char *const	*envp;
 
-	envp = parser->envp;
+	envp = environ;
 	while (*envp)
 	{
 		if (peek_behind_matching_str("PATH=", *envp))
@@ -88,7 +90,7 @@ char *executable_name, size_t executable_name_len)
  * @return the parser object with the executable in the data expanded,
  * or NULL if the executable is not found in PATH.
  */
-t_pipex_parser	*expand_executable_path(t_pipex_parser *parser)
+char	*expand_executable_path(t_pipex_parser *parser)
 {
 	char const	*path_envp;
 	char		*expanded_path;
@@ -97,10 +99,10 @@ t_pipex_parser	*expand_executable_path(t_pipex_parser *parser)
 
 	if (!parser)
 		return (NULL);
-	path_envp = get_parser_path_envp(parser);
+	path_envp = get_parser_path_envp();
 	if (!path_envp)
 		return (NULL);
-	executable_name = get_parser_executable(parser);
+	executable_name = get_parser_command(parser)[0];
 	executable_name_len = ft_strlen(executable_name);
 	while (*path_envp)
 	{
@@ -110,7 +112,7 @@ t_pipex_parser	*expand_executable_path(t_pipex_parser *parser)
 			return (NULL);
 		if (access(expanded_path, F_OK) == 0)
 		{
-			return (*((char **) parser->data) = expanded_path, parser);
+			return (expanded_path);
 		}
 		free(expanded_path);
 	}

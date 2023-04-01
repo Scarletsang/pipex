@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 13:44:21 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/08 18:23:28 by htsang           ###   ########.fr       */
+/*   Updated: 2023/04/01 21:11:35 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_pipex_exit_code	handle_child_error(t_pipex_states *states)
 
 	parser = get_parser(states);
 	print_child_error(states->program_name, \
-		get_parser_executable(parser), NULL);
+		get_parser_command(parser)[0], NULL);
 	free_parser_data(parser);
 	return (PROGRAM_FAILURE);
 }
@@ -41,7 +41,7 @@ t_pipex_exit_code	handle_command_not_found_error(char *executable, \
 t_pipex_states *states)
 {
 	print_command_not_found_error(executable, states);
-	if (get_parser_executable(get_parser(states)) != executable)
+	if (get_parser_command(get_parser(states))[0] != executable)
 	{
 		free(executable);
 	}

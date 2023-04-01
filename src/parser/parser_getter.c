@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:34:22 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/05 01:24:48 by htsang           ###   ########.fr       */
+/*   Updated: 2023/04/01 21:04:27 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,4 @@ const char	*get_parser_filename(t_pipex_parser *parser)
 char	**get_parser_command(t_pipex_parser *parser)
 {
 	return ((char **)(parser->data));
-}
-
-char	*get_parser_executable(t_pipex_parser *parser)
-{
-	return (((char **)(parser->data))[0]);
 }

@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 19:14:09 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/16 15:42:55 by htsang           ###   ########.fr       */
+/*   Updated: 2023/04/01 19:30:09 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ t_pipex_states	*switch_pipe(t_pipex_states *states)
 	return (states);
 }
 
-t_pipex_states	*init_states(char const **argv, char *const *envp, \
-t_pipex_states *states)
+t_pipex_states	*init_states(char const **argv, t_pipex_states *states)
 {
 	const char		*program_name;
 
@@ -53,6 +52,6 @@ t_pipex_states *states)
 	states->last_pipe_index = 0;
 	states->program_name = program_name;
 	argv++;
-	init_parser(argv, envp, &states->parser);
+	init_parser(argv, &states->parser);
 	return (states);
 }

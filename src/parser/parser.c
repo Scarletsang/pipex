@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:34:22 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/06 21:50:08 by htsang           ###   ########.fr       */
+/*   Updated: 2023/04/01 19:29:25 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ void	free_parser_data(t_pipex_parser *parser)
 	}
 }
 
-t_pipex_parser	*init_parser(char const **argv, char *const *envp, \
-t_pipex_parser *parser)
+t_pipex_parser	*init_parser(char const **argv, t_pipex_parser *parser)
 {
-	parser->envp = envp;
 	parser->inputs = argv;
 	parser->data = NULL;
 	parser->data_type = CONST_STRING;

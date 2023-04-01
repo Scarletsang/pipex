@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:43:52 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/16 15:49:08 by htsang           ###   ########.fr       */
+/*   Updated: 2023/04/01 20:18:58 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@ void	fork_command(t_pipex_states *states)
 	parser_walk_forward(get_parser(states));
 }
 
-int	fork_command_to_outfile(int permission, t_pipex_states *states)
+pid_t	fork_command_to_outfile(int permission, t_pipex_states *states)
 {
 	t_pipex_exit_code	exit_code;
-	int					wstatus;
 	pid_t				pid;
 
 	pid = safe_fork(states);
@@ -55,6 +54,5 @@ int	fork_command_to_outfile(int permission, t_pipex_states *states)
 		exit(exit_code);
 	}
 	close_pipe(get_last_pipe(states));
-	waitpid(pid, &wstatus, 0);
-	return (WEXITSTATUS(wstatus));
+	return (pid);
 }

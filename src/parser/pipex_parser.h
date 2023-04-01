@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:59:23 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/08 18:43:26 by htsang           ###   ########.fr       */
+/*   Updated: 2023/04/01 21:09:22 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ t_pipex_parser	*parser_walk_backward(t_pipex_parser *parser);
 
 void			free_parser_data(t_pipex_parser *parser);
 
-t_pipex_parser	*init_parser(char const **argv, char *const *envp, \
-t_pipex_parser *parser);
+t_pipex_parser	*init_parser(char const **argv, t_pipex_parser *parser);
 
 //////////////////////////////////
 /////      parse inputs    ///////
@@ -67,8 +66,6 @@ const char		*get_parser_filename(t_pipex_parser *parser);
 
 char			**get_parser_command(t_pipex_parser *parser);
 
-char			*get_parser_executable(t_pipex_parser *parser);
-
 //////////////////////////////////
 ////         checker        //////
 //////////////////////////////////
@@ -83,6 +80,6 @@ int				parsing_failed(t_pipex_parser *parser);
 ////       Path expander       /////
 ////////////////////////////////////
 
-t_pipex_parser	*expand_executable_path(t_pipex_parser *parser);
+char			*expand_executable_path(t_pipex_parser *parser);
 
 #endif

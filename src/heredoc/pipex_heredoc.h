@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:58:41 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/07 16:00:00 by htsang           ###   ########.fr       */
+/*   Updated: 2023/04/01 19:31:52 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../processes/pipex_processes.h"
 
-int				heredoc_main(int argc, const char **argv, char *const *envp);
+int				heredoc_main(int argc, const char **argv);
 
 int				is_heredoc(const char *str);
 

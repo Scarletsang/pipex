@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 23:54:12 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/06 00:12:55 by htsang           ###   ########.fr       */
+/*   Updated: 2023/04/01 21:10:37 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ const char *error_msg)
 void	print_file_permission_error(t_pipex_states *states)
 {
 	print_child_error(states->program_name, \
-		get_parser_executable(get_parser(states)), NULL);
+		get_parser_command(get_parser(states))[0], NULL);
 }
 
 void	print_command_not_found_error(char *executable, t_pipex_states *states)

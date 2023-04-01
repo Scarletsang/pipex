@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:58:24 by htsang            #+#    #+#             */
-/*   Updated: 2023/01/16 15:43:40 by htsang           ###   ########.fr       */
+/*   Updated: 2023/04/01 21:50:59 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	fork_heredoc(t_pipex_states *states)
 	parser_walk_forward(get_parser(states));
 }
 
-int	heredoc_main(int argc, const char **argv, char *const *envp)
+int	heredoc_main(int argc, const char **argv)
 {
 	t_pipex_states	states;
 
@@ -92,11 +92,12 @@ int	heredoc_main(int argc, const char **argv, char *const *envp)
 			"usage: ./pipex here_doc LIMITER cmd1 cmd2 ... outfile\n", 54);
 		return (EXIT_FAILURE);
 	}
-	init_states(argv, envp, &states);
+	init_states(argv, &states);
 	fork_heredoc(&states);
 	while (!check_next_command_is_end(get_parser(&states)))
 	{
 		fork_command(&states);
 	}
-	return (fork_command_to_outfile(O_APPEND | O_CREAT | O_RDWR, &states));
+	return (wait_all_children(\
+		fork_command_to_outfile(O_TRUNC | O_CREAT | O_RDWR, &states)));
 }
