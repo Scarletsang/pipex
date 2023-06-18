@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:58:24 by htsang            #+#    #+#             */
-/*   Updated: 2023/04/01 21:50:59 by htsang           ###   ########.fr       */
+/*   Updated: 2023/06/18 22:01:06 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,11 @@ static void	fork_heredoc(t_pipex_states *states)
 	{
 		exit_code = run_heredoc(states);
 		free_parser_data(get_parser(states));
-		free(states);
 		exit(exit_code);
 	}
 	waitpid(pid, &wstatus, 0);
 	if (!WIFEXITED(wstatus))
 	{
-		free(states);
 		exit(WEXITSTATUS(wstatus));
 	}
 	switch_pipe(states);
